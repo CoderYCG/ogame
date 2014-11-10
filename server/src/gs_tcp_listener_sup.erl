@@ -1,8 +1,5 @@
 %%---------------------------------------------
 %% @Module	:	gs_tcp_listener_sup
-%% @Author	:	ycg
-%% @Email	:	1050676515@qq.com
-%% @Created	:	2014.10.30
 %% @Description	:	监听进程监控树
 %%---------------------------------------------
 -module(gs_tcp_listener_sup).

@@ -1,8 +1,5 @@
 %%---------------------------------------------
 %% @Module	:	gs_tcp_acceptor
-%% @Author	:	ycg
-%% @Email	:	1050676515@qq.com
-%% @Created	:	2014.10.30
 %% @Description	:	连接进程
 %%---------------------------------------------
 -module(gs_tcp_acceptor).

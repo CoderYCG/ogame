@@ -1,7 +1,5 @@
 %%---------------------------------------------
 %% @Module	:	gs_tcp_acceptor_sup
-%% @Email	:	1050676515@qq.com
-%% @Created	:	2014.10.30
 %% @Description	:	连接进程监控树
 %%---------------------------------------------
 -module(gs_tcp_acceptor_sup).
