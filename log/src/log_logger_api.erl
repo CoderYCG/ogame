@@ -20,7 +20,7 @@ dev_msg(File, Line, Format, Args) ->
 		Level >= 6 ->
 			private_notify(info_msg, "DEV(~p:~p) : " ++ Format ++ "\n", [File, Line] ++ Args);
 		true ->
-			skip
+			ok
 	end.
 
 debug_msg(File, Line, Format, Args) ->
@@ -29,7 +29,7 @@ debug_msg(File, Line, Format, Args) ->
 		Level >= 5 ->
 			private_notify(info_msg, "DEBUG(~p:~p) : " ++ Format ++ "\n", [File, Line] ++ Args);
 		true ->
-			skip
+			ok
 	end.
 
 info_msg(File, Line, Format, Args) ->
@@ -38,7 +38,7 @@ info_msg(File, Line, Format, Args) ->
 		Level >= 4 ->
 			private_notify(info_msg, "INFO(~p:~p) : " ++ Format ++ "\n", [File, Line] ++ Args);
 		true ->
-			skip
+			ok
 	end.
 
 warning_msg(File, Line, Format, Args) ->
@@ -47,7 +47,7 @@ warning_msg(File, Line, Format, Args) ->
 		Level >= 3 ->
 			private_notify(info_msg, "WARNING(~p:~p) : " ++ Format ++ "\n", [File, Line] ++ Args);
 		true ->
-			skip
+			ok
 	end.
 
 error_msg(File, Line, Format, Args) ->
@@ -56,7 +56,7 @@ error_msg(File, Line, Format, Args) ->
 		Level >= 2 ->
 			private_notify(error, "ERROR(~p:~p) : " ++ Format ++ "\n", [File, Line] ++ Args);
 		true ->
-			skip
+			ok
 	end.
 
 critical_msg(File, Line, Format, Args) ->
@@ -65,10 +65,13 @@ critical_msg(File, Line, Format, Args) ->
 		Level >= 1 ->
 			private_notify(error, "CRITICAL(~p:~p) : " ++ Format ++ "\n", [File, Line] ++ Args);
 		true ->
-			skip
+			ok
 	end.
 
 
+%%----------------------------------------------------------
+%% private function
+%%----------------------------------------------------------
 %% 将日志信息发送到error logger
 private_notify(Type, Format, Args) ->
 	Msg = {Type, group_leader(), {self(), Format, Args}},
