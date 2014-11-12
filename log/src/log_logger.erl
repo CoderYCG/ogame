@@ -25,7 +25,6 @@
 		fd = []						%% 日志文件名
 	}).
 
--define(LOG_LEVEL, [{0, no_log}, {1, critical}, {2, error}, {3, warning}, {4, info}, {5, debug}, {6, dev}]).
 %% 消息队列长度
 -define(MAX_PENDING_MSG, 100000).
 
@@ -135,7 +134,7 @@ write_event(Fd, {Time, {warning_report, _GL, {Pid, std_warning, Rep}}}) ->
 write_event(Fd, {Time, {warning_msg, _GL, {_Pid, Format, Args}}}) ->
 	do_write(Fd, Time, "WARNING_MSG", Format, Args);
 
-write_event(_, Info) ->
+write_event(_, _Info) ->
 %	io:format("~s ~p", ["ERROR UNKNOW MESSAGE", Info]),
 	ok.
 
