@@ -10,7 +10,3 @@ start() ->
 
 stop() ->
 	application:stop(log).
-
-test() ->
-	L = 10/0,
-	L.
