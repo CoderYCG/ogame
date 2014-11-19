@@ -109,7 +109,7 @@ prepare(StmtName, Statement) when is_atom(StmtName) andalso (is_list(Statement) 
 	ok = emsql:prepare(StmtName, Statement).
 
 
-%% 事务操作
+%% mysql事务操作
 transaction(F) ->
 	case emysql:transaction(?DB, F) of
 		{ok, Val} -> {ok, Val};

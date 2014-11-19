@@ -652,6 +652,7 @@ execute(PoolId, StmtName, Args, Timeout, nonblocking) when is_atom(StmtName), is
             emysql_conn:execute(Conn, StmtName, Args)
     end.
 
+%% transaction
 transaction(PoolId, Func) ->
     transaction(PoolId, Func, default_timeout()).
 

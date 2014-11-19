@@ -141,6 +141,7 @@ unprepare(Connection, Name) ->
     Packet = <<?COM_QUERY, "DEALLOCATE PREPARE ", (list_to_binary(Name))/binary>>,  % todo: utf8?
     send_recv(Connection, Packet).
 
+%% transaction
 transaction(Connection, Fun) ->
     case begin_transaction(Connection) of
         #ok_packet{} ->
