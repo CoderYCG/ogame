@@ -173,7 +173,12 @@ handle_call({add_pool, Pool}, _From, State) ->
         {_, _} ->
             {reply, {error, pool_already_exists}, State};
         undefined ->
-            {reply, ok, State#state{pools = [Pool|State#state.pools]}}
+            case catch emysql_conn:open_connections(Pool) of
+                {ok, NewPool} ->
+                    {reply, {ok, Pool#pool.pool_id}, State#state{pools = [NewPool|State#state.pools]}};
+                {Error, Reason} ->
+                    {reply, {Error, Reason}, State}
+             end
     end;
 
 handle_call({remove_pool, PoolId}, _From, State) ->
