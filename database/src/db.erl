@@ -68,7 +68,7 @@ add_pool(PoolId, Props) when is_integer(PoolId), is_list(Props) ->
 		database = proplists:get_value(database, Props),
 		encoding = proplists:get_value(encoding, Props, utf8)
 	},
-	emysql_conn_mgr:add_pool(Pool).
+	emysql:add_pool(Pool).
 
 get_one_by_pool(PoolId, Sql) ->
 	case emysql:execute(PoolId, Sql) of

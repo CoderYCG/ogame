@@ -103,6 +103,7 @@
 -export([   start/0, stop/0,
             add_pool/2,
             add_pool/9,
+            add_pool/1,
             add_pool/8, remove_pool/1, increment_pool_size/2, decrement_pool_size/2
 ]).
         
@@ -275,28 +276,7 @@ add_pool(#pool{pool_id=PoolId,size=Size,user=User,password=Password,host=Host,po
 		       database=Database,encoding=Encoding,start_cmds=StartCmds,
 		       connect_timeout=ConnectTimeout,warnings=Warnings}=PoolSettings)->
     config_ok(PoolSettings),
-    case emysql_conn_mgr:has_pool(PoolId) of
-        true -> 
-            {error,pool_already_exists};
-        false ->
-            Pool = #pool{
-                    pool_id = PoolId,
-                    size = Size,
-                    user = User,
-                    password = Password,
-                    host = Host,
-                    port = Port,
-                    database = Database,
-                    encoding = Encoding,
-                    start_cmds = StartCmds,
-                    connect_timeout = ConnectTimeout,
-                    warnings = Warnings
-                    },
-            Pool2 = case emysql_conn:open_connections(Pool) of
-                {ok, Pool1} -> Pool1;
-                {error, Reason} -> throw(Reason)
-            end,
-            emysql_conn_mgr:add_pool(Pool2)
+    emysql_conn_mgr:add_pool(PoolSettings)
     end.
 
 %% @spec add_pool(PoolId, Size, User, Password, Host, Port, Database, Encoding) -> Result
