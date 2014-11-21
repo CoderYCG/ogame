@@ -272,11 +272,15 @@ add_pool(PoolId, Options) when is_list(Options) ->
 			  encoding=Encoding, start_cmds=StartCmds, 
 			  connect_timeout=ConnectTimeout, warnings=Warnings}).
 
-add_pool(#pool{pool_id=PoolId,size=Size,user=User,password=Password,host=Host,port=Port,
-		       database=Database,encoding=Encoding,start_cmds=StartCmds,
-		       connect_timeout=ConnectTimeout,warnings=Warnings}=PoolSettings)->
+add_pool(PoolSettings) when is_record(PoolSettings, pool) ->
     config_ok(PoolSettings),
-    emysql_conn_mgr:add_pool(PoolSettings)
+    case emysql_conn_mgr:add_pool(PoolSettings) of
+        {ok, _NewPool} ->
+            ok;
+        {error, pool_already_exists} ->
+            {error, pool_already_exists};
+        {_Error, Reason} ->
+            throw(Reason)
     end.
 
 %% @spec add_pool(PoolId, Size, User, Password, Host, Port, Database, Encoding) -> Result

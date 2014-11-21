@@ -178,7 +178,7 @@ handle_call({add_pool, Pool}, _From, State) ->
                     {reply, {ok, Pool#pool.pool_id}, State#state{pools = [NewPool|State#state.pools]}};
                 {Error, Reason} ->
                     {reply, {Error, Reason}, State}
-             end
+            end
     end;
 
 handle_call({remove_pool, PoolId}, _From, State) ->
